@@ -42,6 +42,7 @@ body {
         position: absolute;
         top: 60px;
         right: 0;
+        width: 100%;
         background: #1f2937;
         flex-direction: column;
         width: 200px;
