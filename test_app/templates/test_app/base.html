@@ -1,38 +1,65 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'test_app/css/style.css' %}">
+    <title>{% block title %}My Team{% endblock %}</title>
 </head>
 <body>
 
-<nav class="navbar">
-    <div class="logo">MyPortfolio</div>
+    <nav class="navbar">
+        <div class="page-container nav-wrapper">
+            <ul class="sidebar">
+                <li onclick="hideSidebar()"><a href="#"><i class="fa-solid fa-xmark"></i> Close</a></li>
+                <li><a href="{% url 'home' %}"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="{% url 'about' %}"><i class="fa-solid fa-circle-info"></i> About</a></li>
+                <li><a href="{% url 'projects' %}"><i class="fa-solid fa-code"></i> Projects</a></li>
+                <li><a href="{% url 'contact' %}"><i class="fa-solid fa-phone"></i> Contact</a></li>
+            </ul>
 
-    <div class="menu-toggle" onclick="toggleMenu()">
-        ☰
+            <ul class="main-nav">
+                <li class="logo-item"><a href="{% url 'home' %}" class="logo">MyTeam</a></li>
+                
+                <li class="hideOnMobile"><a href="{% url 'home' %}">Home</a></li>
+                <li class="hideOnMobile"><a href="{% url 'about' %}">About</a></li>
+                <li class="hideOnMobile"><a href="{% url 'projects' %}">Projects</a></li>
+                <li class="hideOnMobile"><a href="{% url 'contact' %}">Contact</a></li>
+
+                <li class="menu-button" onclick="showSidebar()">
+                    <a href="#"><i class="fa-solid fa-bars"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-container content-area">
+        {% block content %}{% endblock %}
     </div>
 
-    <ul class="nav-links" id="navLinks">
-        <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'about' %}">About</a></li>
-        <li><a href="{% url 'projects' %}">Projects</a></li>
-        <li><a href="{% url 'contact' %}">Contact</a></li>
-    </ul>
-</nav>
+    <script>
+        const sidebar = document.querySelector('.sidebar');
 
-<div class="container">
-    {% block content %}{% endblock %}
-</div>
+        function showSidebar() {
+            sidebar.style.display = 'flex';
+        }
 
-<script>
-function toggleMenu() {
-    document.getElementById("navLinks").classList.toggle("active");
-}
-</script>
+        function hideSidebar() {
+            sidebar.style.display = 'none';
+        }
 
+        // Close when clicking outside
+        document.addEventListener('click', (event) => {
+            const menuBtn = document.querySelector('.menu-button');
+            if (sidebar.style.display === 'flex') {
+                if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+                    hideSidebar();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
