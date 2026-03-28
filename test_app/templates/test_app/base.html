@@ -10,56 +10,52 @@
     <title>{% block title %}My Team{% endblock %}</title>
 </head>
 <body>
-
     <nav class="navbar">
-        <div class="page-container nav-wrapper">
-            <ul class="sidebar">
-                <li onclick="hideSidebar()"><a href="#"><i class="fa-solid fa-xmark"></i> Close</a></li>
-                <li><a href="{% url 'home' %}"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="{% url 'about' %}"><i class="fa-solid fa-circle-info"></i> About</a></li>
-                <li><a href="{% url 'projects' %}"><i class="fa-solid fa-code"></i> Projects</a></li>
-                <li><a href="{% url 'contact' %}"><i class="fa-solid fa-phone"></i> Contact</a></li>
-            </ul>
+    <div class="page-container nav-wrapper">
+        <ul class="mobile-menu" id="mobileMenu">
+            <li onclick="toggleMenu()"><a href="#"><i class="fa-solid fa-xmark"></i> Close</a></li>
+            <li><a href="{% url 'home' %}"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="{% url 'about' %}"><i class="fa-solid fa-circle-info"></i> About</a></li>
+            <li><a href="{% url 'projects' %}"><i class="fa-solid fa-code"></i> Projects</a></li>
+            <li><a href="{% url 'contact' %}"><i class="fa-solid fa-phone"></i> Contact</a></li>
+        </ul>
 
-            <ul class="main-nav">
-                <li class="logo-item"><a href="{% url 'home' %}" class="logo">MyPortfolio</a></li>
-                
-                <li class="hideOnMobile"><a href="{% url 'home' %}">Home</a></li>
-                <li class="hideOnMobile"><a href="{% url 'about' %}">About</a></li>
-                <li class="hideOnMobile"><a href="{% url 'projects' %}">Projects</a></li>
-                <li class="hideOnMobile"><a href="{% url 'contact' %}">Contact</a></li>
+        <ul class="main-nav">
+            <li class="logo-item"><a href="{% url 'home' %}" class="logo">MyPortfolio</a></li>
+            
+            <li class="hideOnMobile"><a href="{% url 'home' %}">Home</a></li>
+            <li class="hideOnMobile"><a href="{% url 'about' %}">About</a></li>
+            <li class="hideOnMobile"><a href="{% url 'projects' %}">Projects</a></li>
+            <li class="hideOnMobile"><a href="{% url 'contact' %}">Contact</a></li>
 
-                <li class="menu-button" onclick="showSidebar()">
-                    <a href="#"><i class="fa-solid fa-bars"></i></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="page-container content-area">
-        {% block content %}{% endblock %}
+            <li class="menu-button" onclick="toggleMenu()">
+                <a href="#"><i class="fa-solid fa-bars"></i></a>
+            </li>
+        </ul>
     </div>
+</nav>
 
-    <script>
-        const sidebar = document.querySelector('.sidebar');
+ <div class="page-container content-area">
+        {% block content %}{% endblock %}
+</div>
 
-        function showSidebar() {
-            sidebar.style.display = 'flex';
-        }
+<script>
+    const mobileMenu = document.getElementById('mobileMenu');
 
-        function hideSidebar() {
-            sidebar.style.display = 'none';
-        }
+    function toggleMenu() {
+        // We toggle a class instead of manual style updates for smoother CSS transitions
+        mobileMenu.classList.toggle('open');
+    }
 
-        // Close when clicking outside
-        document.addEventListener('click', (event) => {
-            const menuBtn = document.querySelector('.menu-button');
-            if (sidebar.style.display === 'flex') {
-                if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
-                    hideSidebar();
-                }
+    // Close when clicking outside
+    document.addEventListener('click', (event) => {
+        const menuBtn = document.querySelector('.menu-button');
+        if (mobileMenu.classList.contains('open')) {
+            if (!mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                toggleMenu();
             }
-        });
-    </script>
+        }
+    });
+</script>
 </body>
 </html>
