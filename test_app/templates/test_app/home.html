@@ -1,6 +1,37 @@
 {% extends 'test_app/base.html' %}
+<title>{% block title %}Home - My Portfolio{% endblock %}</title>
 
 {% block content %}
-<h1>Welcome 👋</h1>
-<p>This is my portfolio website.</p>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Hi, I'm <span class="highlight">Your Name</span></h1>
+            <p>Full Stack Developer specializing in Python & Django.</p>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+    </header>
+
+    <section id="projects" class="projects">
+        <h2>Selected Projects</h2>
+        <div class="project-grid">
+            {% for project in projects %}
+            <div class="card">
+                <a href="{% url 'project_detail' project.pk %}">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-img">
+                    {% endif %}
+                </a>
+                <div style="padding: 20px;">
+                    <h3><a href="{% url 'project_detail' project.pk %}" style="text-decoration:none; color:inherit;">{{ project.title }}</a></h3>
+                    <p>{{ project.description|truncatewords:15 }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>No projects added yet!</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Your Name. Built with Django.</p>
+    </footer>
 {% endblock %}

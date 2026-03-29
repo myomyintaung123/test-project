@@ -1,7 +1,23 @@
-body {
+:root {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-main: #f8fafc;
+    --accent: #38bdf8;
+    --text-dim: #94a3b8;
+}
+
+
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
 }
 
 /* =========================
@@ -114,6 +130,147 @@ body {
     text-decoration: none; /* Added to remove underlines */
 }
 
+
+
+/* Hero Section */
+.hero {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.highlight {
+    color: var(--accent);
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    background: var(--accent);
+    color: var(--bg-color);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Projects */
+.projects {
+    padding: 5rem 10%;
+}
+
+
+/* Container for all cards */
+.project-grid {
+    display: grid;
+    /* FIX: Changed '1fr' to '350px' to prevent cards from stretching too wide */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 350px));
+    gap: 2rem;
+    padding: 20px 0;
+    justify-content: center; /* Centers the cards on the page */
+}
+
+/* Individual Card */
+.card {
+    background: var(--card-bg, #1e293b);
+    border-radius: 12px;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    border: 1px solid #334155;
+    padding-bottom: 20px;
+    height: 100%; /* Keeps all cards in a row the same height */
+}
+
+/* The Image inside the card */
+.project-img {
+    width: 100%;
+    height: 180px;      /* Slightly shorter height looks cleaner */
+    object-fit: cover;  /* Prevents stretching */
+    object-position: top; /* Usually better for website screenshots */
+    display: block;
+}
+
+
+.detail-page {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.detail-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Side by side on desktop */
+    gap: 40px;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.detail-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.detail-content h1 {
+    font-size: 2.5rem;
+    color: var(--text-main);
+}
+
+.meta {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin: 10px 0;
+}
+
+.full-description {
+    margin-top: 20px;
+    white-space: pre-wrap; /* Maintains line breaks from Admin text box */
+}
+
+
+
+footer {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-dim);
+}
+
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    .project-grid {
+        /* On tiny phones, we let it be 1fr, but the max-width of the phone keeps it small */
+        grid-template-columns: 1fr; 
+    }
+    
+    .project-img {
+        height: 180px; 
+    }
+
+    .hero h1 {
+        font-size: 2rem; /* Keep hero text tidy on small phones */
+    }
+}
+
+
+
 /* 3. Responsive Media Queries */
 @media (max-width: 768px) {
     /* Hide the text links on mobile */
@@ -130,5 +287,18 @@ body {
     .mobile-menu {
         display: flex;
         flex-direction: column;
+    }
+
+    /* Hero adjustments for small screens */
+    .hero h1 { font-size: 2.2rem; }
+    .hero p { font-size: 1rem; color: #94a3b8; }
+    
+
+    .detail-wrapper {
+        grid-template-columns: 1fr; /* Stack vertically on mobile */
+    }
+    
+    .detail-content h1 {
+        font-size: 1.8rem;
     }
 }

@@ -1,0 +1,27 @@
+{% extends 'test_app/base.html' %}
+<title>{% block title %}{{ project.title }}{% endblock %}</title>
+
+{% block content %}
+<div class="container detail-page">
+        <a href="{% url 'home' %}" class="back-link">← Back to Portfolio</a>
+        
+        <div class="detail-wrapper">
+            <div class="detail-image">
+                {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                {% endif %}
+            </div>
+            
+            <div class="detail-content">
+                <h1>{{ project.title }}</h1>
+                <div class="meta">Published on {{ project.date_created|date:"M d, Y" }}</div>
+                <hr>
+                <p class="full-description">{{ project.description }}</p>
+                
+                {% if project.url %}
+                    <a href="{{ project.url }}" target="_blank" class="btn">Visit Live Project</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
